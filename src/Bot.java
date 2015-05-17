@@ -44,12 +44,12 @@ public class Bot {
         }
     }
 
-    public void czytajTekst(String tekst, int rzad) {
+    public void czytajTekst(String tekst) {
         Scanner in = new Scanner(tekst);
         String prefiks = "";
         String sufiks = "";
-        for (int a = 0; a < rzad; ) {
-            for (int i = 0; i < rzad - 1 && in.hasNext(); i++) {
+        for (int a = 0; a < skorowidz.rzad; ) {
+            for (int i = 0; i < skorowidz.rzad - 1 && in.hasNext(); i++) {
                 if (i>0)
                     prefiks = prefiks + " ";
                 prefiks = prefiks + in.next();
@@ -108,7 +108,7 @@ public class Bot {
 
     public static void main(String[] args) throws FileNotFoundException {
         Bot komp = new Bot(3);
-        komp.czytajTekst("raz dwa trzy cztery piec szesc siedem", 3);
+        komp.czytajTekst("raz dwa trzy cztery piec szesc siedem");
         System.out.print(komp.odpiszWiadomosc("raz dwa trzy"));
     }
 
