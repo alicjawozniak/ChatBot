@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileReader;
+import java.util.concurrent.Executor;
 
 /**
  * Created by Ala on 2015-05-15.
@@ -13,24 +14,19 @@ import java.io.FileReader;
 public class View {
     public static void main(String[] args) {
 
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
 
                 Ramka mojaramka = new Ramka();
                 mojaramka.setVisible(true);
-                mojaramka.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                System.out.print("plik " + mojaramka.getPlikArg()+" n: "+mojaramka.getRzadArg());
-                if(mojaramka.getPlikArg() != null){
-                    mojaramka.wypiszWiadomosc(mojaramka.getPlikArg());
-                }
-            }
-        });
     }
 }
 class Ramka extends JFrame{
     public RzadDialog oknoDialog;
     public String plikArg;
+    public JButton wyslijButton = new JButton("wyslij");
+    public JButton wczytajButton = new JButton("wczytaj");
+    public final JTextArea czat = new JTextArea(10, 20);
+    public final JTextField wiadomosc = new JTextField(25);
+
     public Ramka() {
         setSize(500, 300);
         setLocationByPlatform(true);
@@ -38,9 +34,7 @@ class Ramka extends JFrame{
         setLayout(new BorderLayout());
         czat.setEditable(false);
         wiadomosc.setEditable(true);
-
-        JButton wyslijButton = new JButton("wyslij");
-        JButton wczytajButton = new JButton("wczytaj");
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JScrollPane czatPanel = new JScrollPane(czat);
         JPanel przyciskiPanel = new JPanel();
@@ -49,39 +43,15 @@ class Ramka extends JFrame{
         przyciskiPanel.add(wyslijButton);
         przyciskiPanel.add(wczytajButton);
 
-        wyslijButton.addActionListener(new ActionListener() {
-                                           @Override
-                                           public void actionPerformed(ActionEvent e) {
-                                               wypiszWiadomosc("Ty: " + wiadomosc.getText() + "\n");
-                                           }
-                                       }
-        );
-        wczytajButton.addActionListener(new ActionListener() {
-                                            @Override
-                                            public void actionPerformed(ActionEvent e) {
-                                                JFileChooser chooser = new JFileChooser();
-                                                chooser.showOpenDialog(null);
-                                                plikArg = chooser.getSelectedFile().getAbsolutePath();
-                                                try {
-                                                    FileReader fr = new FileReader(plikArg);
-                                                }
-                                                catch (Exception exc){
-                                                    exc.printStackTrace();
-                                                }
-                                            }
-                                        }
-        );
         oknoDialog = new RzadDialog(this);
         add(czatPanel, BorderLayout.NORTH);
         add(wiadomosc, BorderLayout.WEST);
         add(przyciskiPanel, BorderLayout.EAST);
         add(statsPanel, BorderLayout.SOUTH);
     }
-    final JTextArea czat = new JTextArea(10, 20);
-    final JTextField wiadomosc = new JTextField(25);
 
     public void wypiszWiadomosc(String s){
-        czat.append(s);
+        czat.append(s+"\n");
     }
     class RzadDialog extends JDialog{
         JSlider rzadSlider;
@@ -109,7 +79,6 @@ class Ramka extends JFrame{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     rzadArg = rzadSlider.getValue();
-                    System.out.print(rzadArg);
                     setVisible(false);
                 }
             });
