@@ -60,7 +60,7 @@ public class Bot {
             } else {
                 in.close();
                 in = new Scanner(tekst);
-                for (int j=0; j<a+1; j++)
+                for (int j=0; j<a+1 && in.hasNext(); j++)
                     in.next();
                 a++;
             }

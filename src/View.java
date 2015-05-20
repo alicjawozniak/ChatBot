@@ -1,12 +1,9 @@
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileReader;
-import java.util.concurrent.Executor;
 
 /**
  * Created by Ala on 2015-05-15.
@@ -28,7 +25,7 @@ class Ramka extends JFrame{
     public final JTextField wiadomosc = new JTextField(25);
 
     public Ramka() {
-        setSize(500, 300);
+        setSize(520, 300);
         setLocationByPlatform(true);
         setTitle("ChatBot");
         setLayout(new BorderLayout());
