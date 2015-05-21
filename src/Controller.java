@@ -12,24 +12,25 @@ import java.util.Scanner;
 public class Controller {
     Bot bot;
     Ramka ramka;
-    public Controller(Bot bot, Ramka ramka){
+
+    public Controller(Bot bot, Ramka ramka) {
         this.bot = bot;
         this.ramka = ramka;
         ramka.wczytajButton.addActionListener(new WczytajListener());
         ramka.wyslijButton.addActionListener(new WyslijListener());
     }
-    class WczytajListener implements ActionListener{
+
+    class WczytajListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             JFileChooser chooser = new JFileChooser();
-            chooser.setFileFilter(new FileNameExtensionFilter("Pliki tekstowe","txt"));
+            chooser.setFileFilter(new FileNameExtensionFilter("Pliki tekstowe", "txt"));
             chooser.showOpenDialog(null);
             String plikArg = chooser.getSelectedFile().getAbsolutePath();
             try {
                 new FileReader(plikArg);
                 new Scanner(plikArg);
-            }
-            catch (Exception exc){
+            } catch (Exception exc) {
                 exc.printStackTrace();
             }
             try {
@@ -41,12 +42,18 @@ public class Controller {
 
         }
     }
-    class WyslijListener implements ActionListener{
+
+    class WyslijListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ramka.wypiszWiadomosc("Ty: " + ramka.wiadomosc.getText());
-            bot.czytajTekst(ramka.wiadomosc.getText());
-            ramka.wypiszWiadomosc("Bot: " +bot.odpiszWiadomosc(ramka.wiadomosc.getText()));
+            if (!ramka.wiadomosc.getText().equals("")) {
+                ramka.wypiszWiadomosc("Ty: " + ramka.wiadomosc.getText());
+                bot.czytajTekst(ramka.wiadomosc.getText());
+                if (bot.isEmpty())
+                    ramka.errorDialog();
+                else
+                    ramka.wypiszWiadomosc("Bot: " + bot.odpiszWiadomosc(ramka.wiadomosc.getText()));
+            }
         }
     }
 }

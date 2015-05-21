@@ -1,6 +1,4 @@
-import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by Ala on 2015-05-17.

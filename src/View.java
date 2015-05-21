@@ -10,8 +10,6 @@ import java.awt.event.ActionListener;
  */
 public class View {
     public static void main(String[] args) {
-
-
                 Ramka mojaramka = new Ramka();
                 mojaramka.setVisible(true);
     }
@@ -88,41 +86,14 @@ class Ramka extends JFrame{
             setVisible(true);
         }
     }
+    public void errorDialog (){
+        JOptionPane.showMessageDialog(this, "Baza danych jest pusta, prosze wczytac tekst lub wpisac wiadomosc o wiekszej" +
+                " ilosci slow niz rzad n-gramow bazy", "Pusta baza", JOptionPane.ERROR_MESSAGE);
+    }
     public int getRzadArg(){
         return oknoDialog.rzadArg;
     }
     public String getPlikArg(){
         return plikArg;
-    }
-}
-class Parametry {
-    public int getRzad() {
-        return rzad;
-    }
-
-    public void setRzad(int rzad) {
-        this.rzad = rzad;
-    }
-
-    private int rzad;
-
-    public String getPlik() {
-        return plik;
-    }
-
-    public void setPlik(String plik) {
-        this.plik = plik;
-    }
-
-    private String plik;
-
-    public void pobierz(String nazwa, int rzad){
-        this.plik = nazwa;
-        this.rzad = rzad;
-    }
-
-    @Override
-    public String toString() {
-        return ("plik: "+plik+" rzad: "+rzad);
     }
 }

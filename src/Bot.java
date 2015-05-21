@@ -85,7 +85,7 @@ public class Bot {
     }
     public String odpiszWiadomosc (String wejscie){
         Random rand = new Random();
-        int liczba = rand.nextInt(10)+3;
+        int liczba = rand.nextInt(10)+skorowidz.rzad;
         String ostatnie = odczytajOstatnie(wejscie);
         String zwrotna = ostatnie;
 
@@ -104,6 +104,9 @@ public class Bot {
                 zwrotna = zwrotna + " ";
         }
         return zwrotna;
+    }
+    public boolean isEmpty(){
+        return skorowidz.skorowidz.isEmpty();
     }
 
     public static void main(String[] args) throws FileNotFoundException {
