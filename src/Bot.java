@@ -93,7 +93,7 @@ public class Bot {
             zwrotna = zwrotna + " " +odpiszSlowo(ostatnie);
             ostatnie = odczytajOstatnie(zwrotna);
         }
-        return "Komputer: " + zwrotna;
+        return zwrotna;
     }
     public String odczytajOstatnie (String wejscie){
         String[] temp = wejscie.split(" ");
@@ -115,7 +115,7 @@ public class Bot {
         System.out.print(komp.odpiszWiadomosc("raz dwa trzy"));
     }
 
-    private BazaDanych skorowidz;
+    public BazaDanych skorowidz;
 }
 
 class BazaDanych {

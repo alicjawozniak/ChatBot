@@ -47,12 +47,12 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!ramka.wiadomosc.getText().equals("")) {
-                ramka.wypiszWiadomosc("Ty: " + ramka.wiadomosc.getText());
+                ramka.wiadomoscOdTy("Ty: " + ramka.wiadomosc.getText());
                 bot.czytajTekst(ramka.wiadomosc.getText());
                 if (bot.isEmpty())
                     ramka.errorDialog();
                 else
-                    ramka.wypiszWiadomosc("Bot: " + bot.odpiszWiadomosc(ramka.wiadomosc.getText()));
+                    ramka.wiadomoscOdBota("Kolczatka: " + bot.odpiszWiadomosc(ramka.wiadomosc.getText()));
             }
         }
     }

@@ -1,6 +1,10 @@
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,35 +23,62 @@ class Ramka extends JFrame{
     public String plikArg;
     public JButton wyslijButton = new JButton("wyslij");
     public JButton wczytajButton = new JButton("wczytaj");
-    public final JTextArea czat = new JTextArea(10, 20);
+    public final JTextPane czat = new JTextPane();
     public final JTextField wiadomosc = new JTextField(25);
+    public ImageIcon jezIkona = new ImageIcon("C:\\Users\\Ala\\IdeaProjects\\ChatBot\\echidna.png");
+    public ImageIcon tyIkona = new ImageIcon("C:\\Users\\Ala\\IdeaProjects\\ChatBot\\you.png");
 
     public Ramka() {
         setSize(520, 300);
         setLocationByPlatform(true);
-        setTitle("ChatBot");
-        setLayout(new BorderLayout());
+        setTitle("kolCZATka");
+        setLayout(new FlowLayout());
         czat.setEditable(false);
         wiadomosc.setEditable(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        JScrollPane czatPanel = new JScrollPane(czat);
+        JScrollPane czatScrollPane = new JScrollPane(czat);
+        czatScrollPane.setSize(400,200);
+        JPanel czatPanel = new JPanel();
         JPanel przyciskiPanel = new JPanel();
-        JPanel statsPanel = new JPanel();
+        //JPanel statsPanel = new JPanel();
 
         przyciskiPanel.add(wyslijButton);
         przyciskiPanel.add(wczytajButton);
 
+        czatPanel.add(czatScrollPane);
+        czatScrollPane.setPreferredSize(new Dimension(500, 200));
+
         oknoDialog = new RzadDialog(this);
-        add(czatPanel, BorderLayout.NORTH);
-        add(wiadomosc, BorderLayout.WEST);
-        add(przyciskiPanel, BorderLayout.EAST);
-        add(statsPanel, BorderLayout.SOUTH);
+        add(czatScrollPane);
+        add(wiadomosc);
+        add(przyciskiPanel);
+        //add(statsPanel, BorderLayout.SOUTH);
     }
 
-    public void wypiszWiadomosc(String s){
-        czat.append(s+"\n");
+    public void wiadomoscOdBota (String s){
+        SimpleAttributeSet botAtrybuty = new SimpleAttributeSet();
+        StyleConstants.setAlignment(botAtrybuty, StyleConstants.ALIGN_LEFT);
+        StyleConstants.setForeground(botAtrybuty, Color.black);
+        czat.insertIcon(jezIkona);
+        try {
+            czat.getStyledDocument().insertString(czat.getStyledDocument().getLength(), s + "\n", botAtrybuty);
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
     }
+    public void wiadomoscOdTy (String s){
+        SimpleAttributeSet tyAtrybuty = new SimpleAttributeSet();
+        StyleConstants.setAlignment(tyAtrybuty, StyleConstants.ALIGN_RIGHT);
+        StyleConstants.setForeground(tyAtrybuty, Color.gray);
+        czat.insertIcon(tyIkona);
+        try {
+            czat.getStyledDocument().insertString(czat.getStyledDocument().getLength(), s + "\n", tyAtrybuty);
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+    }
+
     class RzadDialog extends JDialog{
         JSlider rzadSlider;
         int rzadArg;
