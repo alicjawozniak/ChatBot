@@ -60,37 +60,38 @@ public class Stats {
                 wrzucNgram(bot, ngram5, klucz);
             }
         }
+        znajdzPrawdop(bot, ngram1);
+        znajdzPrawdop(bot, ngram2);
+        znajdzPrawdop(bot, ngram3);
+        znajdzPrawdop(bot, ngram4);
+        znajdzPrawdop(bot, ngram5);
     }
     public void wrzucNgram (Bot bot, NgramStats ngram, String klucz){
         ngram.prefiks = klucz;
         ngram.liczbaWyst = bot.skorowidz.skorowidz.get(klucz).size();
-        ngram.prawdop = 100*ngram.liczbaWyst/bot.skorowidz.skorowidz.size();
 
-        int a = 0, i=0;
-        String tempSuf0 = "";
-        String tempSuf2;
-        String tempSuf1;
-        int tempWyst = 0;
+        int a = 1, tempWyst = 0;
+        String maxSuf = "", tempSuf1 = "", tempSuf2 = "";
         ArrayList<String> temp = bot.skorowidz.skorowidz.get(klucz);
         Iterator<String> iterator = temp.iterator();
+        Iterator<String> iterator2;
         while (iterator.hasNext()){
+            a = 1;
             tempSuf1 = iterator.next();
-            Iterator<String> iterator2 = iterator;
+            iterator2 = iterator;
             while (iterator2.hasNext()){
                 tempSuf2 = iterator2.next();
                 if (tempSuf1.equals(tempSuf2))
                     a++;
             }
             if (a > tempWyst){
-                tempSuf0 = tempSuf1;
-                a = 0;
+                maxSuf = tempSuf1;
             }
-            i++;
         }
 
-        ngram.liczbaSuf = i;
-        ngram.sufiks = tempSuf0;
-        ngram.sufPrawdop = 100*a/i;
+        ngram.liczbaSuf = a;
+        ngram.sufiks = maxSuf;
+        ngram.sufPrawdop = 100*a/ngram.liczbaWyst;
     }
     public void podmienNgramy (NgramStats cel, NgramStats zrodlo){
         cel.liczbaWyst = zrodlo.liczbaWyst;
@@ -100,10 +101,13 @@ public class Stats {
         cel.liczbaSuf = zrodlo.liczbaSuf;
         cel.prawdop = zrodlo.prawdop;
     }
+    public void znajdzPrawdop (Bot bot, NgramStats ngram){
+        ngram.prawdop = 100*ngram.liczbaWyst/bot.skorowidz.rozmiar;
+    }
 
     public static void main(String[] args){
         Bot mojbot = new Bot(2);
-        mojbot.czytajTekst("trzy raz cztery dwa piec raz dwa raz szesc");
+        mojbot.czytajTekst("trzy raz cztery dwa piec raz dwa raz szesc raz cztery");
         Stats mojestaty = new Stats();
         mojestaty.znajdzPrefiksy(mojbot);
         mojestaty.ngram1.wypiszStaty();

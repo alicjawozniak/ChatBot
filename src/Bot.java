@@ -121,6 +121,7 @@ public class Bot {
 class BazaDanych {
     public Map<String, ArrayList<String>> skorowidz = new HashMap<String, ArrayList<String>>();
     public int rzad;
+    public int rozmiar;
 
     public void dodajngram(String pref, String sufiks) {
         if (skorowidz.containsKey(pref)) {
@@ -131,6 +132,7 @@ class BazaDanych {
             temp.add(sufiks);
             skorowidz.put(pref, temp);
         }
+        rozmiar++;
     }
     public String wypisz() {
         System.out.print(skorowidz);
