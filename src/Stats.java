@@ -30,7 +30,7 @@ public class Stats {
     NgramStats ngram3;
     NgramStats ngram4;
     NgramStats ngram5;
-    public void znajdzPrefiksy (Bot bot) {
+    public void znajdzTopPiec (Bot bot) {
         int x;
         for (String klucz : bot.skorowidz.skorowidz.keySet()) {
             x = bot.skorowidz.skorowidz.get(klucz).size();
@@ -109,7 +109,7 @@ public class Stats {
         Bot mojbot = new Bot(2);
         mojbot.czytajTekst("trzy raz cztery dwa piec raz dwa raz szesc raz cztery");
         Stats mojestaty = new Stats();
-        mojestaty.znajdzPrefiksy(mojbot);
+        mojestaty.znajdzTopPiec(mojbot);
         mojestaty.ngram1.wypiszStaty();
         mojestaty.ngram2.wypiszStaty();
         mojestaty.ngram3.wypiszStaty();

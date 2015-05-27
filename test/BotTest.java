@@ -1,5 +1,6 @@
 import junit.framework.TestCase;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
@@ -28,5 +29,22 @@ public class BotTest extends TestCase {
 
         String wiad = komp.odpiszWiadomosc("raz dwa trzy");
         assertTrue(wiad.startsWith("dwa trzy cztery"));
+    }
+    public void testCzytajPlik (){
+        Bot bot = new Bot(4);
+
+        //test na pliku
+        try {
+            bot.czytajPlik("C:\\Users\\Ala\\IdeaProjects\\ChatBot\\nicze.txt");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        //test na nieistniejacym pliku
+        try {
+            bot.czytajPlik("brakpliku");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        //test na pustym pliku
     }
 }

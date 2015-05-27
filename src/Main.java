@@ -10,6 +10,7 @@ public class Main {
             public void run() {
 
                 Ramka ramka = new Ramka();
+                ramka.statsRamka.setVisible(true);
                 ramka.setVisible(true);
                 Bot bot = new Bot(ramka.getRzadArg());
                 Controller kontroler = new Controller(bot, ramka);
