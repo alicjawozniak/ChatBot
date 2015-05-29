@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Created by Ala on 2015-05-17.

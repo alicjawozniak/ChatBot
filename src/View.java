@@ -234,7 +234,7 @@ class Ramka extends JFrame {
         JPanel panel5;
 
         public TopPiecFrame() {
-            setSize(500, 500);
+            setSize(950, 200);
             setLocationByPlatform(true);
             setTitle("Top Piec");
             setLayout(new FlowLayout());
@@ -254,12 +254,15 @@ class Ramka extends JFrame {
 
         public JPanel stworzPanel(int miejsce, String prefiks, String sufiks, int prawdop, int sufPrawdop, int liczbaWyst) {
             JPanel panel = new JPanel();
-            panel.add(new JLabel("Miejsce: " + miejsce));
+            JLabel miejsceLabel = new JLabel("Miejsce " + miejsce);
+            miejsceLabel.setForeground(Color.red);
+            panel.add(miejsceLabel);
             panel.add(new JLabel("Prefiks: " + prefiks));
-            panel.add(new JLabel("liczbaWyst: " + liczbaWyst));
-            panel.add(new JLabel("Prawdop: " + prawdop + "%"));
-            panel.add(new JLabel("sufiks: " + sufiks));
-            panel.add(new JLabel("sufPrawdop: " + sufPrawdop + "%"));
+            panel.add(new JLabel("Liczba Wystapien: " + liczbaWyst));
+            panel.add(new JLabel("Prawdopodobienstwo wystapienia: " + prawdop + "%"));
+            panel.add(new JLabel("Najczestszy sufiks: " + sufiks));
+            if (sufPrawdop != 0) panel.add(new JLabel("Prawdopodobienstwo tego sufiksa: " + sufPrawdop + "%"));
+            else panel.add(new JLabel("Prawdopodobienstwo tego sufiksa: <0%"));
 
             return panel;
         }
