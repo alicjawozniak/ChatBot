@@ -47,4 +47,13 @@ public class BotTest extends TestCase {
         }
         //test na pustym pliku
     }
+    public void testStaty(){
+        Bot bot = new Bot(2);
+        bot.czytajTekst("raz dwa trzy raz cztery dwa piec raz dwa raz szesc");
+
+        assertTrue(bot.maSufiksy("raz"));
+        assertTrue(bot.maSufiksy("trzy"));
+
+        assertTrue(!bot.maSufiksy("szesc"));
+    }
 }

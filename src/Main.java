@@ -13,7 +13,8 @@ public class Main {
                 ramka.statsRamka.setVisible(true);
                 ramka.setVisible(true);
                 Bot bot = new Bot(ramka.getRzadArg());
-                Controller kontroler = new Controller(bot, ramka);
+                Stats staty = new Stats();
+                Controller kontroler = new Controller(bot, ramka, staty);
             }
         });
     }

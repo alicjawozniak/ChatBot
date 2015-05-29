@@ -109,6 +109,10 @@ public class Bot {
         return skorowidz.skorowidz.isEmpty();
     }
 
+    public boolean maSufiksy(String prefiks){
+        return skorowidz.skorowidz.containsKey(prefiks);
+    }
+
     public static void main(String[] args) throws FileNotFoundException {
         Bot komp = new Bot(3);
         komp.czytajTekst("raz dwa trzy cztery piec szesc siedem");

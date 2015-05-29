@@ -104,6 +104,13 @@ public class Stats {
     public void znajdzPrawdop (Bot bot, NgramStats ngram){
         ngram.prawdop = 100*ngram.liczbaWyst/bot.skorowidz.rozmiar;
     }
+    public void czyscNgramy(){
+        ngram1 = new NgramStats();
+        ngram2 = new NgramStats();
+        ngram3 = new NgramStats();
+        ngram4 = new NgramStats();
+        ngram5 = new NgramStats();
+    }
 
     public static void main(String[] args){
         Bot mojbot = new Bot(2);

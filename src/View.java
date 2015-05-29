@@ -5,6 +5,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,9 +38,11 @@ public class View {
 
 class Ramka extends JFrame {
     public RzadDialog oknoDialog;
+    public TopPiecFrame topPiecFrame;
     public String plikArg;
     public JButton wyslijButton = new JButton("wyslij");
     public JButton wczytajButton = new JButton("wczytaj");
+    public JButton topPiecButton = new JButton("Top 5");
     public final JTextPane czat = new JTextPane();
     public final JTextField wiadomosc = new JTextField(25);
     public ImageIcon jezIkona = new ImageIcon("C:\\Users\\Ala\\IdeaProjects\\ChatBot\\echidna.png");
@@ -48,7 +51,7 @@ class Ramka extends JFrame {
     public ImageIcon kroki = new ImageIcon("C:\\Users\\Ala\\IdeaProjects\\ChatBot\\kroki.jpg");
 
     public Ramka() {
-        setSize(520, 300);
+        setSize(540, 300);
         setLocationByPlatform(true);
         setTitle("kolCZATka");
         setLayout(new FlowLayout());
@@ -56,6 +59,7 @@ class Ramka extends JFrame {
         wiadomosc.setEditable(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         statsRamka = new StatsFrame();
+        topPiecFrame = new TopPiecFrame();
 
         JScrollPane czatScrollPane = new JScrollPane(czat);
         czatScrollPane.setSize(400, 200);
@@ -65,6 +69,7 @@ class Ramka extends JFrame {
 
         przyciskiPanel.add(wyslijButton);
         przyciskiPanel.add(wczytajButton);
+        przyciskiPanel.add(topPiecButton);
 
         czatPanel.add(czatScrollPane);
         czatScrollPane.setPreferredSize(new Dimension(500, 200));
@@ -73,15 +78,15 @@ class Ramka extends JFrame {
         add(czatScrollPane);
         add(wiadomosc);
         add(przyciskiPanel);
-        //add(statsPanel, BorderLayout.SOUTH);
     }
 
     public void wiadomoscOdBota(String s) {
         SimpleAttributeSet botAtrybuty = new SimpleAttributeSet();
         StyleConstants.setAlignment(botAtrybuty, StyleConstants.ALIGN_LEFT);
         StyleConstants.setForeground(botAtrybuty, Color.black);
-        czat.insertIcon(jezIkona);
         try {
+            czat.setCaretPosition(czat.getStyledDocument().getLength());
+            czat.insertIcon(jezIkona);
             czat.getStyledDocument().insertString(czat.getStyledDocument().getLength(), s + "\n", botAtrybuty);
         } catch (BadLocationException e) {
             e.printStackTrace();
@@ -92,8 +97,9 @@ class Ramka extends JFrame {
         SimpleAttributeSet tyAtrybuty = new SimpleAttributeSet();
         StyleConstants.setAlignment(tyAtrybuty, StyleConstants.ALIGN_RIGHT);
         StyleConstants.setForeground(tyAtrybuty, Color.gray);
-        czat.insertIcon(tyIkona);
         try {
+            czat.setCaretPosition(czat.getStyledDocument().getLength());
+            czat.insertIcon(tyIkona);
             czat.getStyledDocument().insertString(czat.getStyledDocument().getLength(), s + "\n", tyAtrybuty);
         } catch (BadLocationException e) {
             e.printStackTrace();
@@ -161,7 +167,7 @@ class Ramka extends JFrame {
         Image jezimage;
 
         public StatsFrame() {
-            setSize(800, 600);
+            setSize(750, 350);
             setLocationByPlatform(true);
             setTitle("Statystyki");
             setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -180,7 +186,8 @@ class Ramka extends JFrame {
         public void dodajSciezke(String sciezka) {
             this.listaSciezek.add(sciezka);
         }
-        public void czyscSciezki(){
+
+        public void czyscSciezki() {
             listaSciezek.clear();
             yWspolrzTekst = 40;
             yWspolrzIkona = 20;
@@ -192,29 +199,69 @@ class Ramka extends JFrame {
             public void paint(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g;
                 g2.setPaint(Color.white);
-                g2.fillRect(0, 0, 800, 800);
+                g2.fillRect(0, 0, 1200, 1200);
                 g2.setFont(new Font("Dialog", Font.BOLD, 15));
                 g2.setColor(Color.black);
-                int i =0;
+                int i = 0;
 
 
                 for (String sciezka : listaSciezek) {
                     for (String s : sciezka.split(" ")) {
-                        g2.drawString(s, xWspolrz, yWspolrzTekst );
-                        xWspolrz+=(s.length()*10);
-                        if (i < sciezka.split(" ").length-1){
+                        g2.drawString(s, xWspolrz, yWspolrzTekst);
+                        xWspolrz += (s.length() * 10);
+                        if (i < sciezka.split(" ").length - 1) {
                             g2.drawImage(jezimage, xWspolrz, yWspolrzIkona, null);
-                            xWspolrz+=50;}
+                            xWspolrz += 50;
+                        }
                         i++;
                     }
-                    yWspolrzTekst+=40;
-                    yWspolrzIkona+=40;
+                    yWspolrzTekst += 40;
+                    yWspolrzIkona += 40;
                     xWspolrz = 10;
-                    i=0;
+                    i = 0;
                 }
                 yWspolrzTekst = 40;
                 yWspolrzIkona = 20;
             }
+        }
+    }
+
+    class TopPiecFrame extends JFrame {
+        JPanel panel1;
+        JPanel panel2;
+        JPanel panel3;
+        JPanel panel4;
+        JPanel panel5;
+
+        public TopPiecFrame() {
+            setSize(500, 500);
+            setLocationByPlatform(true);
+            setTitle("Top Piec");
+            setLayout(new FlowLayout());
+            setDefaultCloseOperation(HIDE_ON_CLOSE);
+
+            panel1 = new JPanel();
+            add(panel1);
+            panel2 = new JPanel();
+            add(panel2);
+            panel3 = new JPanel();
+            add(panel3);
+            panel4 = new JPanel();
+            add(panel4);
+            panel5 = new JPanel();
+            add(panel5);
+        }
+
+        public JPanel stworzPanel(int miejsce, String prefiks, String sufiks, int prawdop, int sufPrawdop, int liczbaWyst) {
+            JPanel panel = new JPanel();
+            panel.add(new JLabel("Miejsce: " + miejsce));
+            panel.add(new JLabel("Prefiks: " + prefiks));
+            panel.add(new JLabel("liczbaWyst: " + liczbaWyst));
+            panel.add(new JLabel("Prawdop: " + prawdop + "%"));
+            panel.add(new JLabel("sufiks: " + sufiks));
+            panel.add(new JLabel("sufPrawdop: " + sufPrawdop + "%"));
+
+            return panel;
         }
     }
 }
